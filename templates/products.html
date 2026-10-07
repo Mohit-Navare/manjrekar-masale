@@ -1,0 +1,48 @@
+{% extends "base.html" %} {% block title %}Shop Loncha & Masales | Manjrekar
+Masale{% endblock %} {% block content %}
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">The full collection</span>
+    <h1>Our pantry,<br /><em>your kitchen.</em></h1>
+    <p>
+      Freshly packed Loncha and handcrafted spices, made for the food you love.
+    </p>
+  </div>
+</section>
+<section class="section shop-section">
+  <div class="container">
+    <div class="shop-toolbar">
+      <div>
+        <h2>
+          {% if category == 'all' %}All products{% else %}{{ category }}{% endif
+          %}
+        </h2>
+        <p>{{ products|length }} delicious choices</p>
+      </div>
+      <div class="filter-links">
+        <a
+          href="{{ url_for('products_page', category='all') }}"
+          class="{% if category=='all' %}active{% endif %}"
+          >All</a
+        ><a
+          href="{{ url_for('products_page', category='Loncha') }}"
+          class="{% if category=='Loncha' %}active{% endif %}"
+          >Loncha</a
+        ><a
+          href="{{ url_for('products_page', category='Masales') }}"
+          class="{% if category=='Masales' %}active{% endif %}"
+          >Masales</a
+        >
+      </div>
+    </div>
+    <div class="product-grid">
+      {% for product in products %}{% include 'product_card.html' %}{% else %}
+      <div class="empty-state">
+        <h3>Nothing here yet</h3>
+        <p>Explore our full collection soon.</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

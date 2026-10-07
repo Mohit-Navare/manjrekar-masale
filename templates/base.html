@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Manjrekar Masale — handcrafted Loncha and traditional spices for authentic Indian meals."
+    />
+    <title>{% block title %}Manjrekar Masale{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='mobile.css') }}"
+    />
+    <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+  </head>
+  <body>
+    <div class="topbar">
+      Freshly packed • Free delivery above ₹999 • Made with care in India
+    </div>
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a
+          class="brand"
+          href="{{ url_for('home') }}"
+          aria-label="Manjrekar Masale home"
+        >
+          <span class="brand-mark">MM</span>
+          <span><strong>Manjrekar</strong><small>MASALE</small></span>
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="{{ url_for('home') }}">Home</a>
+          <a href="{{ url_for('products_page') }}">Shop all</a>
+          <a href="{{ url_for('products_page', category='Loncha') }}">Loncha</a>
+          <a href="{{ url_for('products_page', category='Masales') }}"
+            >Masales</a
+          >
+          <a href="{{ url_for('about') }}">Our story</a>
+          <a href="{{ url_for('contact') }}">Contact</a>
+        </nav>
+        <a
+          class="cart-link"
+          href="{{ url_for('cart_page') }}"
+          aria-label="Shopping cart"
+        >
+          <span>🛒</span
+          ><b id="cart-count"
+            >{{ session.get('cart', []) | sum(attribute='quantity') }}</b
+          >
+        </a>
+      </div>
+    </header>
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <a href="{{ url_for('home') }}"><span>⌂</span>Home</a>
+      <a href="{{ url_for('products_page') }}"><span>⌕</span>Shop</a>
+      <a href="{{ url_for('products_page', category='Loncha') }}"
+        ><span>🍃</span>Loncha</a
+      >
+      <a href="{{ url_for('cart_page') }}"
+        ><span>🛒</span>Cart
+        <b>{{ session.get('cart', []) | sum(attribute='quantity') }}</b></a
+      >
+    </nav>
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %}
+    <div class="container flash-stack">
+      {% for category, message in messages %}
+      <div class="flash flash-{{category}}">{{ message }}</div>
+      {% endfor %}
+    </div>
+    {% endif %} {% endwith %} {% block content %}{% endblock %}
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div>
+          <a class="brand footer-brand" href="{{ url_for('home') }}"
+            ><span class="brand-mark">MM</span
+            ><span><strong>Manjrekar</strong><small>MASALE</small></span></a
+          >
+          <p>
+            Traditional Indian Loncha and spice blends made for honest,
+            delicious meals.
+          </p>
+        </div>
+        <div>
+          <h3>Shop</h3>
+          <a href="{{ url_for('products_page', category='Loncha') }}">Loncha</a
+          ><a href="{{ url_for('products_page', category='Masales') }}"
+            >Masales</a
+          >
+        </div>
+        <div>
+          <h3>Help</h3>
+          <a href="{{ url_for('contact') }}">Contact us</a
+          ><a href="{{ url_for('about') }}">About us</a>
+        </div>
+        <div>
+          <h3>Reach us</h3>
+          <a href="tel:+919136151859">+91 9136151859</a
+          ><a href="mailto:smmitgm23@gmail.com">smmitgm23@gmail.com</a>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        © 2026 Manjrekar Masale. Made with warmth and spice.
+      </div>
+    </footer>
+  </body>
+</html>

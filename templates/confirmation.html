@@ -1,0 +1,66 @@
+{% extends "base.html" %} {% block title %}Order Confirmed | Manjrekar Masale{%
+endblock %} {% block content %}
+<section class="section confirmation">
+  <div class="container">
+    <div class="success-card">
+      <div class="success-icon">✓</div>
+      <span class="eyebrow">Order received</span>
+      <h1>Thank you, {{ order.name }}!</h1>
+      <p>
+        Your order has been prepared for WhatsApp confirmation. We will check
+        availability, delivery, and payment details with you.
+      </p>
+      <div class="order-id">
+        <span>Order ID</span><strong>{{ order.order_id }}</strong>
+      </div>
+      <div class="confirmation-details">
+        <div>
+          <h3>Delivery to</h3>
+          <p>{{ order.address }}</p>
+        </div>
+        <div>
+          <h3>Payment</h3>
+          <p>{{ order.payment_method }}</p>
+        </div>
+      </div>
+      <div class="total-card">
+        <span>Total order value</span><strong>₹{{ order.total }}</strong
+        ><small>Payment: {{ order.payment_method }}</small>
+      </div>
+      <div class="qr-card">
+        <div class="qr-code-frame">
+          <img
+            src="{{ url_for('whatsapp_qr') }}"
+            alt="QR code for WhatsApp order"
+            width="180"
+            height="180"
+          />
+        </div>
+        <div>
+          <span class="eyebrow">Scan to order</span>
+          <h3>WhatsApp QR</h3>
+          <p>Scan this code to open your order message on WhatsApp.</p>
+          <a
+            class="text-link"
+            href="{{ order.whatsapp_url }}"
+            target="_blank"
+            rel="noopener"
+            >Open WhatsApp directly ↗</a
+          >
+        </div>
+      </div>
+      <a
+        class="btn btn-primary full"
+        href="{{ order.whatsapp_url }}"
+        target="_blank"
+        rel="noopener"
+        >Continue on WhatsApp <span>↗</span></a
+      >
+      <p class="contact-line">
+        Need help? <a href="tel:+919136151859">9136151859</a> ·
+        <a href="mailto:smmitgm23@gmail.com">smmitgm23@gmail.com</a>
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}

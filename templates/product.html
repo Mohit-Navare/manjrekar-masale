@@ -1,0 +1,71 @@
+{% extends "base.html" %} {% block title %}{{ product.name }} | Manjrekar
+Masale{% endblock %} {% block content %}
+<section class="section product-detail">
+  <div class="container detail-grid">
+    <div class="detail-image" style="--product-color: {{ product.color }}">
+      <span class="detail-emoji">{{ product.icon }}</span
+      ><span class="detail-logo">MM</span
+      ><span class="detail-tag">{{ product.badge }}</span>
+    </div>
+    <div class="detail-copy">
+      <a class="back-link" href="{{ url_for('products_page') }}"
+        >← Back to shop</a
+      >
+      <span class="eyebrow">{{ product.category }} · 1 kg base price</span>
+      <h1>{{ product.name }}</h1>
+      <p class="detail-price">₹{{ product.price }} <small>per 1 kg</small></p>
+      <p class="detail-description">{{ product.description }}</p>
+      <div class="detail-block">
+        <h3>Why you will love it</h3>
+        <ul>
+          <li>Freshly packed in small batches</li>
+          <li>Made with carefully selected ingredients</li>
+          <li>No artificial colours or flavours</li>
+          <li>Sealed for lasting freshness</li>
+        </ul>
+      </div>
+      <form
+        class="purchase-form"
+        method="post"
+        action="{{ url_for('add_to_cart') }}"
+      >
+        <input type="hidden" name="product_id" value="{{ product.id }}" />
+        <div class="size-control">
+          <span>Choose pack size</span
+          ><select name="size">
+            <option value="1 kg">1 kg — ₹{{ product.price }}</option>
+            <option value="500 g">500 g — ₹{{ product.price // 2 }}</option>
+            <option value="250 g">250 g — ₹{{ product.price // 4 }}</option>
+          </select>
+        </div>
+        <div class="quantity-control">
+          <span>Quantity</span
+          ><select name="quantity">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+        <button class="btn btn-primary full" type="submit">Add to cart</button>
+      </form>
+      <div class="delivery-note">
+        <span>🚚</span>
+        <p>
+          <strong>Fast delivery</strong><br />Free delivery on orders above ₹999
+        </p>
+      </div>
+    </div>
+  </div>
+  {% if related %}
+  <div class="container related">
+    <h2>You may also like</h2>
+    <div class="product-grid">
+      {% for item in related %}{% set product = item %}{% include
+      "product_card.html" %}{% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}
